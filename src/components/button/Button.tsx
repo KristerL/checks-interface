@@ -2,14 +2,17 @@ import React from 'react';
 import './Button.css';
 
 interface ButtonProps {
- text: string;
- disabled: boolean;
- type: string;
- onClick: () => void;
+  disabled: boolean;
+  type: string;
+  handleOnClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
- return <button className="Button">{children}</button>;
+const Button: React.FC<ButtonProps> = ({ children, disabled, handleOnClick }) => {
+  return (
+    <button className="Button" onClick={handleOnClick} disabled={disabled}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;
