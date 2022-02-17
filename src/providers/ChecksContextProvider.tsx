@@ -48,12 +48,15 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
 
   const handleKeyboardNavigation = (key: 'ArrowUp' | 'ArrowDown', prevState: ChecksContextState) => {
     const { checks, activeCheckIndex } = prevState;
-    const selectedCheckIndex = activeCheckIndex || 0;
+    const selectedCheckIndex = activeCheckIndex === null ? -1 : activeCheckIndex;
 
     const addition = key === 'ArrowUp' ? -1 : 1;
     const newCheckIndex = selectedCheckIndex + addition;
 
-    if (newCheckIndex < 0 || newCheckIndex > Object.keys(checks).length) {
+    const isNewIndexOutOfBounds = newCheckIndex < 0 || newCheckIndex >= Object.keys(checks).length;
+    const isNewIndexDisabled = newCheckIndex > Object.values(checks).filter(check => check.value).length;
+
+    if (isNewIndexOutOfBounds || isNewIndexDisabled) {
       return prevState;
     }
 
