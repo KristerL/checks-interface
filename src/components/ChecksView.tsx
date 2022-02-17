@@ -1,13 +1,14 @@
-import React from 'react';
-import { Check } from '../App';
+import React, { useContext } from 'react';
 import { CheckRow } from './CheckRow';
+import { ChecksContext } from '../providers/ChecksContext';
 
-export const ChecksView = ({ checks }: { checks: Check[] }) => {
+export const ChecksView = () => {
+  const { checks } = useContext(ChecksContext);
   return (
     <div className="checksView">
-      {checks.map((check) => (
-        <CheckRow key={check.id} check={check} />
-      ))}
+      {Object.entries(checks).map(([key, check], index) => {
+        return <CheckRow key={key} check={check} index={index} />;
+      })}
     </div>
   );
 };

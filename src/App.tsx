@@ -1,43 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { fetchChecks } from './api';
+import React, { useContext, useEffect, useState } from 'react';
 import { ChecksView } from './components/ChecksView';
-
-export interface Check {
-  id: string;
-  priority: number;
-  description: string;
-}
+import { ChecksContext } from './providers/ChecksContext';
 
 export default function App() {
-  const [checks, setChecks] = useState<Check[]>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const { loadChecks, handleKeyBoardEvent } = useContext(ChecksContext);
+
+  const handleKeyPress = ({ key }) => {
+    if (!['ArrowUp', 'ArrowDown', '1', '2'].includes(key)) {
+      return;
+    }
+    handleKeyBoardEvent(key);
+  };
+
   useEffect(() => {
-    fetchChecks()
-      .then((res) => {
-        const sortedChecks = res.sort((a, b) => b.priority - a.priority);
-        setChecks(sortedChecks);
-      })
+    loadChecks()
       .catch((err) => {
         setError(err); // TODO error message?
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
   }, []);
 
   if (isLoading) {
     return <h1>Loading data...</h1>;
   }
 
-  if (error) {
-    return <h1>{error}</h1>;
-  }
+  // if (error) {
+  //   return <h1>{error.message}</h1>;
+  // }
 
   return (
     <div className="checksViewContainer">
-      <ChecksView checks={checks} />
+      <ChecksView />
     </div>
   );
 }

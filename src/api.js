@@ -24,6 +24,11 @@ export function fetchChecks() {
                 priority: 3,
                 description: 'Document data is clearly visible',
               },
+              {
+                id: 'eee',
+                priority: 3,
+                description: 'Submitted document appearance matches that of official specimen',
+              },
             ])
           : reject({ success: false }),
       500

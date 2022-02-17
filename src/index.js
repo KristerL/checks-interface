@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './styles.css';
+import './styles.scss';
 import App from './App';
+import { ChecksContextProvider } from './providers/ChecksContextProvider';
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChecksContextProvider>
+      <App />
+    </ChecksContextProvider>
   </React.StrictMode>,
   rootElement
 );

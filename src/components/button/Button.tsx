@@ -1,15 +1,21 @@
 import React from 'react';
-import './Button.css';
+import classnames from 'classnames';
+import './Button.scss';
 
 interface ButtonProps {
-  disabled: boolean;
-  type: string;
+  disabled?: boolean;
+  selected: boolean;
   handleOnClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, disabled, handleOnClick }) => {
+const Button: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, selected }) => {
+  const classes = classnames({
+    Button: true,
+    selected: selected,
+  });
+
   return (
-    <button className="Button" onClick={handleOnClick} disabled={disabled}>
+    <button className={classes} onClick={handleOnClick} disabled={disabled}>
       {children}
     </button>
   );
