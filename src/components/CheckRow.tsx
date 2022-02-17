@@ -3,7 +3,13 @@ import Button from './button/Button';
 import { Check, CheckButtonValues, ChecksContext } from '../providers/ChecksContext';
 import classnames from 'classnames';
 
-export const CheckRow = ({ check, index }: { check: Check; index: number }) => {
+interface CheckRowProps {
+  check: Check,
+  index: number,
+  disabled: boolean
+}
+
+export const CheckRow: React.FC<CheckRowProps> = ({ check, index, disabled }) => {
   const { changeCheckValue, activeCheckIndex } = useContext(ChecksContext);
 
   const handleButtonClick = (value: Exclude<CheckButtonValues, null>) => {
@@ -13,6 +19,7 @@ export const CheckRow = ({ check, index }: { check: Check; index: number }) => {
   const classes = classnames({
     checkRow: true,
     active: activeCheckIndex === index,
+    disabled: disabled
   });
 
   return (

@@ -32,9 +32,34 @@ h1 {
   box-sizing: border-box;
   padding: 12px 16px;
 
+  &.active {
+    background: $highlight-color;
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: initial;
+
+    &:hover {
+      background: white;
+    }
+
+    & .Button {
+      opacity: 1;
+      border-color: #c4c1c5;
+      color: #c4c1c5;
+      cursor: initial;
+
+      &:hover {
+        background: #fff;
+      }
+    }
+  }
+
   &:hover {
     background: $hover-color;
   }
+
 }
 
 .buttonContainer {
@@ -42,7 +67,5 @@ h1 {
 }
 
 .checkRow {
-  &.active {
-    background: $highlight-color;
-  }
+
 }
