@@ -4,9 +4,9 @@ import { Check, CheckButtonValues, ChecksContext } from '../providers/ChecksCont
 import classnames from 'classnames';
 
 interface CheckRowProps {
-  check: Check,
-  index: number,
-  disabled: boolean
+  check: Check;
+  index: number;
+  disabled: boolean;
 }
 
 export const CheckRow: React.FC<CheckRowProps> = ({ check, index, disabled }) => {
@@ -19,7 +19,7 @@ export const CheckRow: React.FC<CheckRowProps> = ({ check, index, disabled }) =>
   const classes = classnames({
     checkRow: true,
     active: activeCheckIndex === index,
-    disabled: disabled
+    disabled: disabled,
   });
 
   return (

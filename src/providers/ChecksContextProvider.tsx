@@ -2,14 +2,18 @@ import React, { useState, useMemo } from 'react';
 import { Check, CheckButtonValues, ChecksContext, KeyboardKeys } from './ChecksContext';
 import { fetchChecks } from '../api';
 
+type Checks = { [key: string]: Check };
+
 interface ChecksContextState {
-  checks: { [key: string]: Check };
+  checks: Checks;
   activeCheckIndex: number;
+  lastValidIndex: number;
 }
 
 const initialState: ChecksContextState = {
   checks: {},
   activeCheckIndex: null,
+  lastValidIndex: 0,
 };
 
 export const ChecksContextProvider: React.FC = ({ children }) => {
@@ -41,9 +45,23 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     };
   };
 
-  const changeCheckValue = (key: string, newValue: CheckButtonValues, index: number) => {
-    const newCheck = createNewCheckObject(key, newValue, state);
-    setState({ ...state, checks: newCheck, activeCheckIndex: index });
+  const findLastValidCheckIndex = (checks: Checks) => {
+    const values = Object.values(checks);
+    const lastCheckIndexWithValue = values.filter((check) => check.value).length;
+    const firstCheckIndexWithNo = values.findIndex((check) => check.value === 'no');
+
+    let lastValidIndex = lastCheckIndexWithValue;
+    if (firstCheckIndexWithNo !== -1) {
+      lastValidIndex = firstCheckIndexWithNo;
+    }
+
+    return lastValidIndex;
+  };
+
+  const changeCheckValue = (key: string, newValue: CheckButtonValues, activeCheckIndex: number) => {
+    const checks = createNewCheckObject(key, newValue, state);
+    const lastValidIndex = findLastValidCheckIndex(checks);
+    setState({ ...state, checks, activeCheckIndex, lastValidIndex });
   };
 
   const handleKeyboardNavigation = (key: 'ArrowUp' | 'ArrowDown', prevState: ChecksContextState) => {
@@ -54,7 +72,7 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     const newCheckIndex = selectedCheckIndex + addition;
 
     const isNewIndexOutOfBounds = newCheckIndex < 0 || newCheckIndex >= Object.keys(checks).length;
-    const isNewIndexDisabled = newCheckIndex > Object.values(checks).filter(check => check.value).length;
+    const isNewIndexDisabled = newCheckIndex > findLastValidCheckIndex(checks);
 
     if (isNewIndexOutOfBounds || isNewIndexDisabled) {
       return prevState;
@@ -75,12 +93,14 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
 
     const currentCheck = checks[Object.keys(checks)[activeCheckIndex]];
     const newValue: CheckButtonValues = key === '1' ? 'yes' : 'no';
-    const newCheck = createNewCheckObject(currentCheck.id, newValue, prevState);
+    const newChecks = createNewCheckObject(currentCheck.id, newValue, prevState);
+    const lastValidIndex = findLastValidCheckIndex(newChecks);
 
     return {
       ...prevState,
-      checks: newCheck,
+      checks: newChecks,
       activeCheckIndex,
+      lastValidIndex,
     };
   };
 

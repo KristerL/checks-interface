@@ -3,12 +3,11 @@ import { CheckRow } from './CheckRow';
 import { ChecksContext } from '../providers/ChecksContext';
 
 export const ChecksView = () => {
-  const { checks } = useContext(ChecksContext);
-  const validChecks = Object.values(checks).filter(check => check.value).length;
+  const { checks, lastValidIndex } = useContext(ChecksContext);
   return (
     <div className="checksView">
       {Object.entries(checks).map(([key, check], index) => {
-        return <CheckRow key={key} check={check} index={index} disabled={index > validChecks}/>;
+        return <CheckRow key={key} check={check} index={index} disabled={index > lastValidIndex} />;
       })}
     </div>
   );

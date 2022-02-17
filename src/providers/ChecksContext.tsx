@@ -16,6 +16,7 @@ export interface Check {
 export interface ChecksContextProps {
   checks: { [key: string]: Check };
   activeCheckIndex: number;
+  lastValidIndex: number;
   loadChecks: () => Promise<any>;
   changeCheckValue: (key: string, newValue: Exclude<CheckButtonValues, null>, index: number) => void;
   handleKeyBoardEvent: (key: KeyboardKeys) => void;
@@ -24,6 +25,7 @@ export interface ChecksContextProps {
 export const initialState: ChecksContextProps = {
   checks: {},
   activeCheckIndex: null,
+  lastValidIndex: 0,
 
   loadChecks: () => null,
   changeCheckValue: () => null,
