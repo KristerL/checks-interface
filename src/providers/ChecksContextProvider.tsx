@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Check, CheckButtonValues, ChecksContext, KeyboardKeys } from './ChecksContext';
 import { fetchChecks } from '../api';
 
 type Checks = { [key: string]: Check };
+
+type KeyboardStateChange = (key: KeyboardKeys, prevState: ChecksContextState) => ChecksContextState;
 
 interface ChecksContextState {
   checks: Checks;
@@ -35,7 +37,7 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
       });
   };
 
-  const createNewCheckObject = (key: string, newValue: CheckButtonValues, state: ChecksContextState) => {
+  const createNewChecksObject = (key: string, newValue: CheckButtonValues, state: ChecksContextState) => {
     return {
       ...state.checks,
       [key]: {
@@ -50,16 +52,11 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     const lastCheckIndexWithValue = values.filter((check) => check.value).length;
     const firstCheckIndexWithNo = values.findIndex((check) => check.value === 'no');
 
-    let lastValidIndex = lastCheckIndexWithValue;
-    if (firstCheckIndexWithNo !== -1) {
-      lastValidIndex = firstCheckIndexWithNo;
-    }
-
-    return lastValidIndex;
+    return firstCheckIndexWithNo !== -1 ? firstCheckIndexWithNo : lastCheckIndexWithValue;
   };
 
   const changeCheckValue = (key: string, newValue: CheckButtonValues, activeCheckIndex: number) => {
-    const checks = createNewCheckObject(key, newValue, state);
+    const checks = createNewChecksObject(key, newValue, state);
     const lastValidIndex = findLastValidCheckIndex(checks);
     setState({ ...state, checks, activeCheckIndex, lastValidIndex });
   };
@@ -93,7 +90,7 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
 
     const currentCheck = checks[Object.keys(checks)[activeCheckIndex]];
     const newValue: CheckButtonValues = key === '1' ? 'yes' : 'no';
-    const newChecks = createNewCheckObject(currentCheck.id, newValue, prevState);
+    const newChecks = createNewChecksObject(currentCheck.id, newValue, prevState);
     const lastValidIndex = findLastValidCheckIndex(newChecks);
 
     return {
@@ -106,13 +103,11 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
 
   const handleKeyBoardEvent = (key: KeyboardKeys) => {
     setState((prevState) => {
-      let newState: ChecksContextState;
-      if (key === '1' || key === '2') {
-        newState = handleKeyboardSelect(key, prevState);
-      } else {
-        newState = handleKeyboardNavigation(key, prevState);
-      }
-      return newState;
+      const isKeyboardSelectEvent = key === '1' || key === '2';
+      const newStateFunction: KeyboardStateChange = isKeyboardSelectEvent
+        ? handleKeyboardSelect
+        : handleKeyboardNavigation;
+      return newStateFunction(key, prevState);
     });
   };
 

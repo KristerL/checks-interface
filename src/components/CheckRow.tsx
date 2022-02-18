@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Button from './button/Button';
+import ToggleButton from './toggleButton/ToggleButton';
 import { Check, CheckButtonValues, ChecksContext } from '../providers/ChecksContext';
 import classnames from 'classnames';
 
@@ -26,12 +26,12 @@ export const CheckRow: React.FC<CheckRowProps> = ({ check, index, disabled }) =>
     <div className={classes}>
       <h1 className="checkDescription">{check.description}</h1>
       <div className="buttonContainer">
-        <Button selected={check.value === 'yes'} handleOnClick={() => handleButtonClick('yes')}>
+        <ToggleButton selected={check.value === 'yes'} handleOnClick={() => handleButtonClick('yes')}>
           Yes
-        </Button>
-        <Button selected={check.value === 'no'} handleOnClick={() => handleButtonClick('no')}>
+        </ToggleButton>
+        <ToggleButton selected={check.value === 'no'} handleOnClick={() => handleButtonClick('no')}>
           No
-        </Button>
+        </ToggleButton>
       </div>
     </div>
   );

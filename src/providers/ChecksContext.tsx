@@ -1,10 +1,8 @@
 import { createContext } from 'react';
 
-const ValidKeyboardKeys = ['ArrowUp', 'ArrowDown', '1', '2'] as const;
-export const isValidKeyboardKey = (value: any): value is KeyboardKeys => ValidKeyboardKeys.includes(value);
-export type KeyboardKeys = typeof ValidKeyboardKeys[number];
+export type KeyboardKeys = 'ArrowUp' | 'ArrowDown' | '1' | '2';
 
-export type CheckButtonValues = 'yes' | 'no' | null;
+export type CheckButtonValues = 'yes' | 'no';
 
 export interface Check {
   id: string;

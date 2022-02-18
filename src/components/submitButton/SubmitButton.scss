@@ -1,0 +1,26 @@
+@use 'src/styles';
+
+.submitButton {
+  background: styles.$primary-color;
+  color: white;
+  padding: 10px 12px;
+  border: unset;
+  border-radius: 4px;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  &.disabled {
+    background: styles.$disabled-main;
+    color: styles.$disabled-dark;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

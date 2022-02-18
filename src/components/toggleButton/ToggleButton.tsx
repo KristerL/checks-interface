@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import './Button.scss';
+import './ToggleButton.scss';
 
 interface ButtonProps {
   disabled?: boolean;
@@ -8,9 +8,9 @@ interface ButtonProps {
   handleOnClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, selected }) => {
+const ToggleButton: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, selected }) => {
   const classes = classnames({
-    Button: true,
+    button: true,
     selected: selected,
   });
 
@@ -21,4 +21,4 @@ const Button: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, sele
   );
 };
 
-export default Button;
+export default ToggleButton;
