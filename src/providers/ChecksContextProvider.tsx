@@ -90,12 +90,9 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
 
   const handleKeyboardSelect = (key: '1' | '2', prevState: ChecksContextState) => {
     const { checks, activeCheckIndex } = prevState;
+    const validActiveCheck = activeCheckIndex === null ? 0 : activeCheckIndex
 
-    if (activeCheckIndex === null) {
-      return prevState;
-    }
-
-    const currentCheck = checks[Object.keys(checks)[activeCheckIndex]];
+    const currentCheck = checks[Object.keys(checks)[validActiveCheck]];
     const newValue: CheckButtonValues = key === '1' ? 'yes' : 'no';
     const newChecks = createNewChecksObject(currentCheck.id, newValue, prevState);
     const lastValidIndex = findLastValidCheckIndex(newChecks);
@@ -103,7 +100,7 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     return {
       ...prevState,
       checks: newChecks,
-      activeCheckIndex,
+      activeCheckIndex: validActiveCheck,
       lastValidIndex,
     };
   };
