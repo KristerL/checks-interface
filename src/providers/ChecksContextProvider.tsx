@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Check, CheckButtonValues, ChecksContext, KeyboardKeys } from './ChecksContext';
 import { fetchChecks } from '../api';
 
@@ -20,6 +20,13 @@ const initialState: ChecksContextState = {
 
 export const ChecksContextProvider: React.FC = ({ children }) => {
   const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyBoardEvent);
+    return () => {
+      window.removeEventListener('keydown', handleKeyBoardEvent);
+    };
+  }, []);
 
   const loadChecks = () => {
     return fetchChecks()
@@ -101,7 +108,11 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     };
   };
 
-  const handleKeyBoardEvent = (key: KeyboardKeys) => {
+  const handleKeyBoardEvent = ({ key }) => {
+    if (!['ArrowUp', 'ArrowDown', '1', '2'].includes(key)) {
+      return;
+    }
+
     setState((prevState) => {
       const isKeyboardSelectEvent = key === '1' || key === '2';
       const newStateFunction: KeyboardStateChange = isKeyboardSelectEvent
@@ -116,7 +127,6 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
       ...state,
       loadChecks,
       changeCheckValue,
-      handleKeyBoardEvent,
     }),
     [state]
   );

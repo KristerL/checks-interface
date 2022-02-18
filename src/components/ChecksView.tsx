@@ -2,9 +2,14 @@ import React, { useContext } from 'react';
 import { CheckRow } from './CheckRow';
 import { ChecksContext } from '../providers/ChecksContext';
 import { SubmitButton } from './submitButton/SubmitButton';
-import { submitCheckResults } from '../api';
 
-export const ChecksView = () => {
+export type SubmitData = { checkId: string; result: string }[];
+
+interface ChecksViewProps {
+  handleSubmit: (data: SubmitData) => void;
+}
+
+export const ChecksView: React.FC<ChecksViewProps> = ({ handleSubmit }) => {
   const { checks, lastValidIndex } = useContext(ChecksContext);
   const checkValues = Object.values(checks);
 
@@ -14,15 +19,13 @@ export const ChecksView = () => {
 
   const handleSubmitClick = () => {
     const validChecks = Object.values(checks).filter((check) => check.value);
-    const data = Object.values(checks).map((check) => {
+    const data: SubmitData = Object.values(checks).map((check) => {
       return {
         checkId: check.id,
         result: check.value,
       };
     });
-    submitCheckResults(data)
-      .then((res) => console.log({ res }))
-      .catch((err) => console.log({ err }));
+    handleSubmit(data);
   };
 
   return (

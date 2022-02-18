@@ -1,19 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ChecksView } from './components/ChecksView';
+import { ChecksView, SubmitData } from './components/ChecksView';
 import { ChecksContext } from './providers/ChecksContext';
+import { submitCheckResults } from './api';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const { loadChecks, handleKeyBoardEvent } = useContext(ChecksContext);
-
-  const handleKeyPress = ({ key }) => {
-    if (!['ArrowUp', 'ArrowDown', '1', '2'].includes(key)) {
-      return;
-    }
-    handleKeyBoardEvent(key);
-  };
+  const { loadChecks } = useContext(ChecksContext);
 
   useEffect(() => {
     loadChecks()
@@ -23,12 +16,12 @@ export default function App() {
       .finally(() => {
         setIsLoading(false);
       });
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
   }, []);
+
+  const handleSubmit = (data: SubmitData) => {
+    submitCheckResults(data)
+      .catch((err) => console.log({ err }));
+  };
 
   if (isLoading) {
     return <h1>Loading data...</h1>;
@@ -40,7 +33,7 @@ export default function App() {
 
   return (
     <div className="checksViewContainer">
-      <ChecksView />
+      <ChecksView handleSubmit={handleSubmit} />
     </div>
   );
 }
