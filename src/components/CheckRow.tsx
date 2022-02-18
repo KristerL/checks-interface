@@ -13,7 +13,9 @@ export const CheckRow: React.FC<CheckRowProps> = ({ check, index, disabled }) =>
   const { changeCheckValue, activeCheckIndex } = useContext(ChecksContext);
 
   const handleButtonClick = (value: Exclude<CheckButtonValues, null>) => {
-    changeCheckValue(check.id, value, index);
+    if (!disabled) {
+      changeCheckValue(check.id, value, index);
+    }
   };
 
   const classes = classnames({

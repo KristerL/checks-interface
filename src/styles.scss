@@ -11,7 +11,7 @@ $hover-color: #e6ebf4;
 $highlight-color: #def7f7;
 
 $disabled-main: #c4c1c5;
-$disabled-dark: #808080;
+$disabled-dark: #4d4d4d;
 
 $primary-white: #fff;
 
@@ -53,8 +53,12 @@ h1 {
     & .button {
       opacity: 1;
       border-color: $disabled-main;
-      color: $disabled-main;
+      color: $disabled-dark;
       cursor: initial;
+
+      &.selected {
+        background: $disabled-main;
+      }
 
       &:hover {
         background: $primary-white;
@@ -70,4 +74,11 @@ h1 {
 
 .buttonContainer {
   margin-top: 6px;
+}
+
+.submitButtonContainer {
+  display: flex;
+  justify-content: right;
+
+  margin-top: 16px;
 }

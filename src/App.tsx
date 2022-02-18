@@ -28,7 +28,7 @@ export default function App() {
 
   const handleCheckLoad = () => {
     setIsLoading(true);
-    setError(null)
+    setError(null);
     loadChecks()
       .catch((err: errorType) => {
         setError(err);

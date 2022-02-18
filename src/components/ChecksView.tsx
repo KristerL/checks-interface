@@ -22,6 +22,10 @@ export const ChecksView: React.FC<ChecksViewProps> = ({ handleSubmit }) => {
   const canSubmit = checkValuesHasNo || checkValuesHasAllYes;
 
   const handleSubmitClick = () => {
+    if (!canSubmit) {
+      return;
+    }
+
     const data: SubmitData = Object.values(checks).map((check) => {
       return {
         checkId: check.id,
@@ -36,7 +40,9 @@ export const ChecksView: React.FC<ChecksViewProps> = ({ handleSubmit }) => {
       {Object.entries(checks).map(([key, check], index) => {
         return <CheckRow key={key} check={check} index={index} disabled={index > lastValidIndex} />;
       })}
-      <SubmitButton handleClick={handleSubmitClick} disabled={!canSubmit} />
+      <div className="submitButtonContainer">
+        <SubmitButton handleClick={handleSubmitClick} disabled={!canSubmit} />
+      </div>
     </div>
   );
 };

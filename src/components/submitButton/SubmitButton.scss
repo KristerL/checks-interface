@@ -14,6 +14,7 @@
     background: styles.$disabled-main;
     color: styles.$disabled-dark;
     opacity: 0.5;
+    cursor: unset;
 
     &:hover {
       opacity: 0.5;
