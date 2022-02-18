@@ -42,7 +42,11 @@ export default function App() {
     return (
       <div className="checksViewContainer">
         <h1>{error.message}</h1>
-        {error.type === 'load' && <button onClick={handleCheckLoad}>Try to load again</button>}
+        {error.type === 'load' && (
+          <button className="submitButton" onClick={handleCheckLoad}>
+            Try to load again
+          </button>
+        )}
       </div>
     );
   };
@@ -59,7 +63,9 @@ export default function App() {
     return (
       <div className="checksViewContainer">
         <h1>Submit was successful</h1>
-        <button onClick={refreshPage}>Start again</button>
+        <button className="submitButton" onClick={refreshPage}>
+          Start again
+        </button>
       </div>
     );
   }

@@ -90,7 +90,7 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
 
   const handleKeyboardSelect = (key: '1' | '2', prevState: ChecksContextState) => {
     const { checks, activeCheckIndex } = prevState;
-    const validActiveCheck = activeCheckIndex === null ? 0 : activeCheckIndex
+    const validActiveCheck = activeCheckIndex === null ? 0 : activeCheckIndex;
 
     const currentCheck = checks[Object.keys(checks)[validActiveCheck]];
     const newValue: CheckButtonValues = key === '1' ? 'yes' : 'no';
