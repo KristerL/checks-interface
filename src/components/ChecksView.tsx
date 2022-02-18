@@ -13,12 +13,15 @@ export const ChecksView: React.FC<ChecksViewProps> = ({ handleSubmit }) => {
   const { checks, lastValidIndex } = useContext(ChecksContext);
   const checkValues = Object.values(checks);
 
+  if (checkValues.length === 0) {
+    return null;
+  }
+
   const checkValuesHasNo = checkValues.some((check) => check.value === 'no');
   const checkValuesHasAllYes = checkValues.every((check) => check.value === 'yes');
   const canSubmit = checkValuesHasNo || checkValuesHasAllYes;
 
   const handleSubmitClick = () => {
-    const validChecks = Object.values(checks).filter((check) => check.value);
     const data: SubmitData = Object.values(checks).map((check) => {
       return {
         checkId: check.id,

@@ -30,7 +30,7 @@ export function fetchChecks() {
                 description: 'Submitted document appearance matches that of official specimen',
               },
             ])
-          : reject({ success: false }),
+          : reject({ type: 'load', message: 'No checks were found to display' }),
       500
     )
   );
@@ -43,6 +43,12 @@ export function fetchChecks() {
  */
 export function submitCheckResults(results) {
   return new Promise((resolve, reject) =>
-    setTimeout(() => (Math.random() <= 0.8 ? resolve(results) : reject({ success: false })), 500)
+    setTimeout(
+      () =>
+        Math.random() <= 0.8
+          ? resolve(results)
+          : reject({ type: 'submit', message: 'Something went wrong while submitting. Please try again' }),
+      500
+    )
   );
 }

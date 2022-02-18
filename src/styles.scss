@@ -23,7 +23,9 @@ h1 {
 
 .checksViewContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .checkDescription {
