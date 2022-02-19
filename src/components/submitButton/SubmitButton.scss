@@ -4,6 +4,8 @@
   padding: 14px 14px;
   margin-top: 16px;
   background: styles.$primary-color;
+  transition: background-color 0.1s ease-in;
+
   border: unset;
   border-radius: 4px;
 
@@ -18,7 +20,7 @@
   &.disabled {
     background: styles.$disabled-main;
     color: styles.$disabled-dark;
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: unset;
 
     &:hover {

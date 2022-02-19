@@ -14,7 +14,7 @@
 
   &.disabled {
     opacity: 0.3;
-    cursor: initial;
+    user-select: none;
     &:hover {
       background: white;
     }

@@ -12,13 +12,18 @@ interface CheckRowProps {
 }
 
 export const CheckRow = ({ check, index, disabled }: CheckRowProps) => {
-  const { changeCheckValue, activeCheckIndex } = useContext(ChecksContext);
+  const { changeCheckValue, activeCheckIndex, setActiveIndex } = useContext(ChecksContext);
 
-  const handleButtonClick = (value: Exclude<CheckButtonValues, null>) => {
+  const handleButtonClick = (e: React.MouseEvent<HTMLElement>,value: Exclude<CheckButtonValues, null>) => {
+    e.stopPropagation();
     if (!disabled) {
       changeCheckValue(check.id, value, index);
     }
   };
+
+  const handleRowClick = () => {
+    setActiveIndex(index);
+  }
 
   const classes = classnames({
     checkRow: true,
@@ -27,7 +32,7 @@ export const CheckRow = ({ check, index, disabled }: CheckRowProps) => {
   });
 
   return (
-    <div className={classes}>
+    <div className={classes} onClick={handleRowClick}>
       <h1 className="checkDescription">{check.description}</h1>
       <div className="buttonContainer">
         {Object.values(CheckButtonValues).map((value) => {
@@ -35,7 +40,7 @@ export const CheckRow = ({ check, index, disabled }: CheckRowProps) => {
             <ToggleButton
               key={check.id + value}
               selected={check.value === value}
-              handleOnClick={() => handleButtonClick(value)}
+              handleOnClick={(e) => handleButtonClick(e, value)}
             >
               {value}
             </ToggleButton>

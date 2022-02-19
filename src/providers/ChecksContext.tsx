@@ -18,8 +18,10 @@ export interface ChecksContextProps {
   checks: { [key: string]: Check };
   activeCheckIndex: number;
   lastValidIndex: number;
+
   loadChecks: () => Promise<void>;
   changeCheckValue: (key: string, newValue: Exclude<CheckButtonValues, null>, index: number) => void;
+  setActiveIndex: (index: number) => void;
 }
 
 export const initialState: ChecksContextProps = {
@@ -29,6 +31,7 @@ export const initialState: ChecksContextProps = {
 
   loadChecks: () => null,
   changeCheckValue: () => null,
+  setActiveIndex: () => null,
 };
 
 export const ChecksContext = createContext<ChecksContextProps>(initialState);

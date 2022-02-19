@@ -5,6 +5,8 @@
   padding: 4px 8px;
 
   background: styles.$primary-white;
+  transition: background-color 0.1s ease-in;
+
   border: 2px solid styles.$primary-color;
 
   font-weight: 500;
@@ -24,7 +26,7 @@
   }
 
   &:focus-visible {
-    outline: none;
+    outline: none; // generally bad to disable this
   }
 
   &:first-child {

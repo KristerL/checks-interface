@@ -118,11 +118,20 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     });
   };
 
+  const setActiveIndex = (index: number) => {
+    const isIndexEnabled = index <= state.lastValidIndex;
+
+    if (isIndexEnabled) {
+      setState({...state, activeCheckIndex: index})
+    }
+  }
+
   const contextValue = useMemo(
     () => ({
       ...state,
       loadChecks,
       changeCheckValue,
+      setActiveIndex
     }),
     [state]
   );

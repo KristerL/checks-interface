@@ -29,12 +29,16 @@ export const ChecksPage = () => {
   };
 
   const handleSubmit = (data: SubmitData) => {
+    setIsLoading(true);
     submitCheckResults(data)
       .then(() => {
         setError(null);
         setSubmitted(true);
       })
-      .catch((err) => setError(err));
+      .catch((err) => setError(err))
+      .finally(() => {
+        setIsLoading(false)
+      })
   };
 
   const renderErrorMessage = () => {
@@ -45,7 +49,7 @@ export const ChecksPage = () => {
     };
 
     return (
-      <div className="checksViewContainer">
+      <div className="errorMessageContainer">
         <h1 className="centerText">{error.message}</h1>
         {error.type === 'load' && (
           <button className="submitButton" onClick={reloadData}>
@@ -61,12 +65,16 @@ export const ChecksPage = () => {
   };
 
   const renderLoadingView = () => {
-    return <h1 className="centerText">Loading data...</h1>;
+    return (
+      <div className="viewContainer">
+        <h1 className="centerText">Loading...</h1>
+      </div>
+    )
   };
 
   const renderSubmitView = () => {
     return (
-      <div className="checksViewContainer">
+      <div className="viewContainer">
         <h1>Submit was successful</h1>
         <button className="submitButton" onClick={refreshPage}>
           Start again
@@ -84,7 +92,7 @@ export const ChecksPage = () => {
   }
 
   return (
-    <div className="checksViewContainer">
+    <div className="viewContainer">
       {error && renderErrorMessage()}
       <ChecksView handleSubmit={handleSubmit} />
     </div>

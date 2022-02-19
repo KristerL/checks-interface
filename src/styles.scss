@@ -18,14 +18,24 @@ h1 {
   margin: 0
 }
 
-.checksViewContainer {
+.viewContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 32px;
+}
+
+.errorMessageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 32px;
 }
 
 .centerText {
   text-align: center;
-  margin-top: 32px;
 }

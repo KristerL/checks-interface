@@ -5,7 +5,7 @@ import './ToggleButton.scss';
 interface ButtonProps {
   disabled?: boolean;
   selected: boolean;
-  handleOnClick: () => void;
+  handleOnClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const ToggleButton: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, selected }) => {
