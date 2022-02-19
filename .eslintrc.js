@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-explicit-any': 2,
     '@typescript-eslint/explicit-function-return-type': 'off',
   },
 };

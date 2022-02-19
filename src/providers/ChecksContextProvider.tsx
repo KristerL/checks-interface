@@ -37,7 +37,6 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
           return acc;
         }, {});
         setState({ ...state, checks: checksObject });
-        return Promise.resolve();
       })
       .catch((err) => {
         return Promise.reject(err);
@@ -93,7 +92,7 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     const validActiveCheck = activeCheckIndex === null ? 0 : activeCheckIndex;
 
     const currentCheck = checks[Object.keys(checks)[validActiveCheck]];
-    const newValue: CheckButtonValues = key === '1' ? 'yes' : 'no';
+    const newValue: CheckButtonValues = key === '1' ? CheckButtonValues.YES : CheckButtonValues.NO;
     const newChecks = createNewChecksObject(currentCheck.id, newValue, prevState);
     const lastValidIndex = findLastValidCheckIndex(newChecks);
 

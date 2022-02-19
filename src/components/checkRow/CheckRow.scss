@@ -1,0 +1,53 @@
+@use 'src/styles';
+
+.checkRow {
+  width: 380px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+
+  &.active {
+    background: styles.$highlight-color;
+    &:hover {
+      background: styles.$highlight-color;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: initial;
+    &:hover {
+      background: white;
+    }
+
+    & .button {
+      opacity: 1;
+      border-color: styles.$disabled-main;
+      color: styles.$disabled-dark;
+      cursor: initial;
+
+      &.selected {
+        background: styles.$disabled-main;
+        &:hover {
+          background: styles.$disabled-main;
+        }
+      }
+
+      &:hover {
+        background: styles.$primary-white;
+      }
+    }
+  }
+
+  &:hover {
+    background: styles.$hover-color;
+  }
+}
+
+.buttonContainer {
+  margin-top: 6px;
+}
+
+.checkDescription {
+  font-size: 16px;
+  font-weight: normal;
+}

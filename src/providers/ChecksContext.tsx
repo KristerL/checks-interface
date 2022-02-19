@@ -2,7 +2,10 @@ import { createContext } from 'react';
 
 export type KeyboardKeys = 'ArrowUp' | 'ArrowDown' | '1' | '2';
 
-export type CheckButtonValues = 'yes' | 'no';
+export enum CheckButtonValues {
+  YES = 'yes',
+  NO = 'no',
+}
 
 export interface Check {
   id: string;
@@ -15,7 +18,7 @@ export interface ChecksContextProps {
   checks: { [key: string]: Check };
   activeCheckIndex: number;
   lastValidIndex: number;
-  loadChecks: () => Promise<any>;
+  loadChecks: () => Promise<void>;
   changeCheckValue: (key: string, newValue: Exclude<CheckButtonValues, null>, index: number) => void;
 }
 

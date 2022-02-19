@@ -4,18 +4,18 @@
   width: 60px;
   padding: 4px 8px;
 
+  background: styles.$primary-white;
+  border: 2px solid styles.$primary-color;
+
   font-weight: 500;
   font-size: 16px;
   text-align: center;
   text-transform: capitalize;
   color: styles.$primary-color;
-
-  background: styles.$primary-white;
-  border: 2px solid styles.$primary-color;
   cursor: pointer;
 
   &:hover {
-    background: styles.$hover-color;
+    background: styles.$highlight-color;
   }
 
   &.selected {

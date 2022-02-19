@@ -30,7 +30,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc && eslint --fix"
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "format": "npm run prettier && npm run lint"
   },
   "browserslist": [
     ">0.2%",
