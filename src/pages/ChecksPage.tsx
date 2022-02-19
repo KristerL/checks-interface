@@ -46,7 +46,7 @@ export const ChecksPage = () => {
 
     return (
       <div className="checksViewContainer">
-        <h1>{error.message}</h1>
+        <h1 className="centerText">{error.message}</h1>
         {error.type === 'load' && (
           <button className="submitButton" onClick={reloadData}>
             Try to load again
@@ -61,7 +61,7 @@ export const ChecksPage = () => {
   };
 
   const renderLoadingView = () => {
-    return <h1>Loading data...</h1>;
+    return <h1 className="centerText">Loading data...</h1>;
   };
 
   const renderSubmitView = () => {
@@ -75,10 +75,16 @@ export const ChecksPage = () => {
     );
   };
 
+  if (submitted) {
+    return renderSubmitView();
+  }
+
+  if (isLoading) {
+    return renderLoadingView();
+  }
+
   return (
     <div className="checksViewContainer">
-      {submitted && renderSubmitView()}
-      {isLoading && renderLoadingView()}
       {error && renderErrorMessage()}
       <ChecksView handleSubmit={handleSubmit} />
     </div>
