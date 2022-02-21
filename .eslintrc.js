@@ -18,4 +18,9 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 2,
     '@typescript-eslint/explicit-function-return-type': 'off',
   },
+  settings: {
+    react: {
+      version: "detect"
+    }
+  }
 };

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checksPage tests should match snapshot 1`] = `
+<div>
+  <div
+    class="viewContainer"
+  >
+    <div>
+      <div
+        class="checkRow"
+      >
+        <h1
+          class="checkDescription"
+        >
+          Veriff supports presented document
+        </h1>
+        <div
+          class="buttonContainer"
+        >
+          <button
+            class="button"
+          >
+            yes
+          </button>
+          <button
+            class="button"
+          >
+            no
+          </button>
+        </div>
+      </div>
+      <div
+        class="submitButtonContainer"
+      >
+        <button
+          class="submitButton disabled"
+        >
+          SUBMIT
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

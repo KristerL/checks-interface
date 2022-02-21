@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Check, CheckButtonValues, ChecksContext, KeyboardKeys } from './ChecksContext';
 import { fetchChecks } from '../api';
 
-type Checks = { [key: string]: Check };
+export type Checks = { [key: string]: Check };
 
 type KeyboardStateChange = (key: KeyboardKeys, prevState: ChecksContextState) => ChecksContextState;
 
-interface ChecksContextState {
+export interface ChecksContextState {
   checks: Checks;
   activeCheckIndex: number;
   lastValidIndex: number;
@@ -18,8 +18,15 @@ const initialState: ChecksContextState = {
   lastValidIndex: 0,
 };
 
-export const ChecksContextProvider: React.FC = ({ children }) => {
-  const [state, setState] = useState(initialState);
+export interface ChecksContextProviderProps {
+  customInitialState?: ChecksContextState;
+}
+
+export const ChecksContextProvider: React.FC<ChecksContextProviderProps> = ({
+  children,
+  customInitialState = initialState,
+}) => {
+  const [state, setState] = useState(customInitialState);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyBoardEvent);
@@ -37,6 +44,9 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
           return acc;
         }, {});
         setState({ ...state, checks: checksObject });
+        if (Object.values(checksObject).length === 0) {
+          return Promise.reject({ type: 'load', message: 'No checks were found to display' });
+        }
       })
       .catch((err) => {
         return Promise.reject(err);
@@ -122,16 +132,16 @@ export const ChecksContextProvider: React.FC = ({ children }) => {
     const isIndexEnabled = index <= state.lastValidIndex;
 
     if (isIndexEnabled) {
-      setState({...state, activeCheckIndex: index})
+      setState({ ...state, activeCheckIndex: index });
     }
-  }
+  };
 
   const contextValue = useMemo(
     () => ({
       ...state,
       loadChecks,
       changeCheckValue,
-      setActiveIndex
+      setActiveIndex,
     }),
     [state]
   );

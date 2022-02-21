@@ -28,7 +28,7 @@ export const ChecksView = ({ handleSubmit }: ChecksViewProps) => {
       return;
     }
 
-    const checksWithDefinitiveValue = Object.values(checks).filter(check => check.value !== undefined);
+    const checksWithDefinitiveValue = Object.values(checks).filter((check) => check.value !== undefined);
     const data: SubmitData = checksWithDefinitiveValue.map((check) => {
       return {
         checkId: check.id,

@@ -14,7 +14,7 @@ interface CheckRowProps {
 export const CheckRow = ({ check, index, disabled }: CheckRowProps) => {
   const { changeCheckValue, activeCheckIndex, setActiveIndex } = useContext(ChecksContext);
 
-  const handleButtonClick = (e: React.MouseEvent<HTMLElement>,value: Exclude<CheckButtonValues, null>) => {
+  const handleButtonClick = (e: React.MouseEvent<HTMLElement>, value: Exclude<CheckButtonValues, null>) => {
     e.stopPropagation();
     if (!disabled) {
       changeCheckValue(check.id, value, index);
@@ -23,7 +23,7 @@ export const CheckRow = ({ check, index, disabled }: CheckRowProps) => {
 
   const handleRowClick = () => {
     setActiveIndex(index);
-  }
+  };
 
   const classes = classnames({
     checkRow: true,

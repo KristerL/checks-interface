@@ -37,8 +37,8 @@ export const ChecksPage = () => {
       })
       .catch((err) => setError(err))
       .finally(() => {
-        setIsLoading(false)
-      })
+        setIsLoading(false);
+      });
   };
 
   const renderErrorMessage = () => {
@@ -69,7 +69,7 @@ export const ChecksPage = () => {
       <div className="viewContainer">
         <h1 className="centerText">Loading...</h1>
       </div>
-    )
+    );
   };
 
   const renderSubmitView = () => {
