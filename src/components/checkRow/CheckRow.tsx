@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import ToggleButton from '../toggleButton/ToggleButton';
 import { Check, CheckButtonValues, ChecksContext } from '../../providers/ChecksContext';
 import classnames from 'classnames';
+import Button from '../button/Button';
 
 import './CheckRow.scss';
 
@@ -37,13 +37,14 @@ export const CheckRow = ({ check, index, disabled }: CheckRowProps) => {
       <div className="buttonContainer">
         {Object.values(CheckButtonValues).map((value) => {
           return (
-            <ToggleButton
+            <Button
               key={check.id + value}
+              classname="toggleButton"
               selected={check.value === value}
               handleOnClick={(e) => handleButtonClick(e, value)}
             >
               {value}
-            </ToggleButton>
+            </Button>
           );
         })}
       </div>

@@ -1,17 +1,20 @@
 import React from 'react';
 import classnames from 'classnames';
-import './ToggleButton.scss';
+import './Button.scss';
 
 interface ButtonProps {
-  disabled?: boolean;
-  selected: boolean;
   handleOnClick: (e: React.MouseEvent<HTMLElement>) => void;
+  classname?: string;
+  disabled?: boolean;
+  selected?: boolean;
 }
 
-const ToggleButton: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, selected }) => {
+const Button: React.FC<ButtonProps> = ({ children, disabled, handleOnClick, selected, classname }) => {
   const classes = classnames({
     button: true,
     selected: selected,
+    disabled: disabled,
+    [classname]: !!classname,
   });
 
   return (
@@ -21,4 +24,4 @@ const ToggleButton: React.FC<ButtonProps> = ({ children, disabled, handleOnClick
   );
 };
 
-export default ToggleButton;
+export default Button;

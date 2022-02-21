@@ -1,0 +1,96 @@
+@use 'src/styles';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 40px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  text-align: center;
+  user-select: none;
+  border: 1px solid transparent;
+  background-color: styles.$primary-color;
+  color: white;
+
+  position: relative;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &.disabled {
+    background-color: #e6ebf4;
+    color: #bdc0cf;
+    cursor: not-allowed;
+  }
+
+  &.selected {
+    &:hover, &:focus {
+      filter: brightness(110%);
+    }
+  }
+}
+
+.submitButton {
+  padding: 14px 14px;
+  margin-top: 16px;
+  transition: background-color 0.1s ease-in;
+
+  border: unset;
+  font-weight: bold;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.disabled {
+    color: styles.$disabled-dark;
+    opacity: 0.6;
+    cursor: unset;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.toggleButton {
+  width: 60px;
+  height: 35px;
+
+  background: styles.$primary-white;
+  transition: background-color 0.1s ease-in;
+
+  border: 2px solid styles.$primary-color;
+
+  text-transform: capitalize;
+  color: styles.$primary-color;
+
+  &:hover {
+    background: styles.$highlight-color;
+  }
+
+  &.selected {
+    background: styles.$primary-color;
+    color: styles.$primary-white;
+  }
+
+  &:focus-visible {
+    outline: none; // generally bad to disable this
+  }
+
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid styles.$primary-color;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid styles.$primary-color
+  }
+}
+

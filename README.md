@@ -2,7 +2,7 @@
 
 Checks interface that displays a list of checks which have to be answered "yes" or "no".
 
-Total code coverage: 94.4%
+Total code coverage: 94.3%
 
 ## Project setup
 

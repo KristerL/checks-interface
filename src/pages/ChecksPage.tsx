@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ChecksView, SubmitData } from '../components/checksView/ChecksView';
 import { ChecksContext } from '../providers/ChecksContext';
 import { submitCheckResults } from '../api';
+import Button from '../components/button/Button';
 
 type errorType = {
   message: string;
@@ -52,9 +53,9 @@ export const ChecksPage = () => {
       <div className="errorMessageContainer">
         <h1 className="centerText">{error.message}</h1>
         {error.type === 'load' && (
-          <button className="submitButton" onClick={reloadData}>
+          <Button classname="submitButton" handleOnClick={reloadData}>
             Try to load again
-          </button>
+          </Button>
         )}
       </div>
     );
@@ -76,9 +77,9 @@ export const ChecksPage = () => {
     return (
       <div className="viewContainer">
         <h1>Submit was successful</h1>
-        <button className="submitButton" onClick={refreshPage}>
+        <Button classname="submitButton" handleOnClick={refreshPage}>
           Start again
-        </button>
+        </Button>
       </div>
     );
   };

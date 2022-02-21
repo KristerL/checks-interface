@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CheckRow } from '../checkRow/CheckRow';
 import { CheckButtonValues, ChecksContext } from '../../providers/ChecksContext';
-import { SubmitButton } from '../submitButton/SubmitButton';
+import Button from '../button/Button';
 
 import './ChecksView.scss';
 
@@ -44,7 +44,9 @@ export const ChecksView = ({ handleSubmit }: ChecksViewProps) => {
         return <CheckRow key={key} check={check} index={index} disabled={index > lastValidIndex} />;
       })}
       <div className="submitButtonContainer">
-        <SubmitButton handleClick={handleSubmitClick} disabled={!canSubmit} />
+        <Button handleOnClick={handleSubmitClick} disabled={!canSubmit} classname="submitButton">
+          SUBMIT
+        </Button>
       </div>
     </div>
   );
